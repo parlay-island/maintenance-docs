@@ -1,5 +1,13 @@
 # Maintenance FAQs
 
+## Where are dependencies?
+
+The backend has all dependencies in a Pipfile.
+
+The frontend has all dependencies in a package.json file.
+
+The Unity application contains all dependencies in Parlay/Packages/packages-lock.json.
+
 ## Why are costs increasing?
 
 There are many answers to this question! [Look at the billing console](./#observe-costs) to get a sense of what is costing you the most.
@@ -8,6 +16,10 @@ Some ideas:
 
 * Are EC2 instances costing you money? That might mean that you have instances that are running that you don't want to run. If you do not have a current development team, try to [shut down the stage environments](./#shut-down-the-stage-applications). Or, you might want to change your Instance Type to a more cost-effective type.
 * Is ELB costing you money? You might want to move to Single Instances instead of using load balancing.
+
+## How do I switch to a new database?
+
+The database settings used are pulled from environment variables. If you are working locally, just edit the `.env` file. If you are working in an elastic beanstalk application, change the configuration environment variables to reflect the new database. 
 
 ## I'm getting lots of 500 errors from the backend. What do I do?
 
@@ -23,8 +35,6 @@ The bad thing about 500 errors is that it's hard to tell what's wrong without go
    2. Make sure that the debug environment variable in elastic beanstalk is set to `True`.
    3. Make sure that this environment is linked to the production database \(check that the database variables in Configuration are the same as in production\), so that accessed data from the backend API call are the same. Change this back after you finish!
    4. Replicate the backend API call that caused the issue and because it's in debug mode, the API will return a web page that shows where the problem is occurring in the code base.
-
-
 
 ## How do I shut everything down?
 
